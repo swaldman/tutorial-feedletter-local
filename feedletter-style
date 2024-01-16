@@ -1,0 +1,5 @@
+#!/bin/bash
+
+FEEDLETTER_STYLE=true ./millw --no-server --watch runMainBackground PreMain "$@"
+
+
