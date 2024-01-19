@@ -21,6 +21,8 @@ fi
 if [[ "$MAINCMD" == "./feedletter" || "$MAINCMD" == "feedletter" ]]; then
     if [[ "$SUBCMD" == "edit-subscribable" ]]; then  # we need native streams...
         ./millw --no-server runMainLocal PreMain "$@"
+    elif [[  "$SUBCMD" == "daemon" ]]; then
+        ./millw --no-server runMainBackground PreMain "$@"
     else
         ./millw --no-server runMain PreMain "$@"
     fi
