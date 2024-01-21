@@ -15,7 +15,7 @@ MAINCMD="$0"
 FEEDLETTER_DIR="$(dirname $MAINCMD)"
 EXECNAME="$(basename $MAINCMD)"
 
-cd $FEEDLETTER_DIR
+cd "$FEEDLETTER_DIR"
 
 if [[ "$1" == "--secrets" ]]; then
     SUBCMD="$3"
@@ -34,7 +34,7 @@ if [[ "$EXECNAME" == "feedletter" ]]; then
         ./millw --no-server runMain PreMain "$@"
     fi
 else
-    echo "Expected this command to be 'feedletter' or './feedletter'"
+    echo "Expected this command to be 'feedletter'."
 fi
 
 

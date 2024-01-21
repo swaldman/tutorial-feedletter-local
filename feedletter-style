@@ -1,5 +1,14 @@
 #!/bin/bash
 
-FEEDLETTER_STYLE=true ./millw --no-server --watch runMainBackground PreMain "$@"
+MAINCMD="$0"
+FEEDLETTER_DIR="$(dirname $MAINCMD)"
+EXECNAME="$(basename $MAINCMD)"
 
+cd "$FEEDLETTER_DIR"
+
+if [[ "$EXECNAME" == "feedletter-style" ]]; then
+    FEEDLETTER_STYLE=true ./millw --no-server --watch runMainBackground PreMain "$@"
+else
+    echo "Expected this command to be 'feedletter-style'."
+fi
 
