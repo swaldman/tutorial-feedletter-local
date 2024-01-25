@@ -13,7 +13,7 @@ object feedletter extends RootModule with UntemplateModule {
   override def scalacOptions = T{ Seq("-deprecation") }
 
   def ivyDeps = Agg(
-    ivy"com.mchange::feedletter:0.0.4"
+    ivy"com.mchange::feedletter:0.0.6"
   )
 
   // we'll build an index!
