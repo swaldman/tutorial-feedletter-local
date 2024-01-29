@@ -1,0 +1,23 @@
+[Unit]
+Description=Feedletter RSS-To-Mail-Etc Service
+After=syslog.target network.target
+
+[Service]
+Type=forking
+PIDFile=/home/feedletter/feedletter-local/feedletter.pid
+User=feedletter
+Group=feedletter
+WorkingDirectory=/home/feedletter/feedletter-local
+
+ExecStart=/home/feedletter/feedletter-local/feedletter daemon --fork
+
+TimeoutStopSec=90
+Restart=on-failure
+RestartSec=10s
+StandardError=journal
+StandardOutput=journal
+StandardInput=null
+
+[Install]
+WantedBy=multi-user.target
+
