@@ -4,16 +4,35 @@ import mill._, scalalib._
 
 import $ivy.`com.lihaoyi::mill-contrib-bloop:$MILL_VERSION`
 
-import $ivy.`com.mchange::untemplate-mill:0.1.2`
-import untemplate.mill._
+import $ivy.`com.mchange::mill-daemon:0.0.1`
 
-object feedletter extends RootModule with UntemplateModule {
+import $ivy.`com.mchange::untemplate-mill:0.1.2`
+
+import untemplate.mill._
+import com.mchange.milldaemon.DaemonModule
+
+import scala.util.control.NonFatal
+
+object feedletter extends RootModule with DaemonModule with UntemplateModule {
   def scalaVersion = "3.3.1"
 
   override def scalacOptions = T{ Seq("-deprecation") }
 
+  val pidFilePathFile = os.pwd / ".feedletter-pid-file-path"
+
+  override def runDaemonPidFile = {
+    if ( os.exists( pidFilePathFile ) )
+      try Some( os.Path( os.read( pidFilePathFile ).trim ) )
+      catch {
+        case NonFatal(t) =>
+          throw new Exception( s"Could not parse absolute path of desired PID file from contents of ${pidFilePathFile}. Please repair or remove this file.", t )
+      }
+    else
+      Some( os.pwd / "feedletter.pid" )
+  }
+
   def ivyDeps = Agg(
-    ivy"com.mchange::feedletter:0.0.6"
+    ivy"com.mchange::feedletter:0.0.7"
   )
 
   // we'll build an index!
